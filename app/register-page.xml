@@ -1,0 +1,56 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Register">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="onBackButtonTap"/>
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Label text="Create Account" class="text-2xl font-bold text-center text-green-700 mb-4"/>
+            
+            <StackLayout class="form">
+                <Label text="{{ errorMessage }}" class="text-red-500 text-center" 
+                       visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" textWrap="true"/>
+                
+                <Label text="First Name" class="text-gray-600"/>
+                <TextField text="{{ firstName }}" 
+                          hint="Enter your first name"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Last Name" class="text-gray-600"/>
+                <TextField text="{{ lastName }}" 
+                          hint="Enter your last name"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Email" class="text-gray-600"/>
+                <TextField text="{{ email }}" 
+                          hint="Enter your email"
+                          keyboardType="email"
+                          autocorrect="false"
+                          autocapitalizationType="none"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Phone Number" class="text-gray-600"/>
+                <TextField text="{{ phoneNumber }}" 
+                          hint="Enter your phone number"
+                          keyboardType="phone"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Physical Address" class="text-gray-600"/>
+                <TextField text="{{ address }}" 
+                          hint="Enter your physical address"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Password" class="text-gray-600"/>
+                <TextField text="{{ password }}" 
+                          hint="Enter your password"
+                          secure="true"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Button text="Register" 
+                        tap="{{ onRegister }}"
+                        class="bg-green-600 text-white p-4 rounded-lg"
+                        isEnabled="{{ canRegister }}"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

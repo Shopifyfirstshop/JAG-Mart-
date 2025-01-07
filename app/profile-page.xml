@@ -1,0 +1,33 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBackButtonTap }}"/>
+        <ActionBar.titleView>
+            <Label text="JAG Mart" class="text-xl font-bold text-center" tap="{{ onTitleTap }}"/>
+        </ActionBar.titleView>
+        <ActionBar.actionItems>
+            <ActionItem tap="{{ onCartTap }}" ios.position="right" android.position="actionBar">
+                <ActionItem.actionView>
+                    <GridLayout columns="auto,auto" class="cart-button">
+                        <Label text="🛒" class="text-xl" col="0"/>
+                        <Label text="{{ cartItemCount }}" class="text-sm bg-red-500 text-white rounded-full px-1" col="1" visibility="{{ cartItemCount > 0 ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <StackLayout class="p-4">
+        <Label text="👤" class="text-6xl text-center"/>
+        <Label text="{{ user.name }}" class="text-2xl font-bold text-center mt-4"/>
+        <Label text="{{ user.email }}" class="text-gray-600 text-center"/>
+        
+        <Button text="Admin Panel" 
+                tap="{{ onAdminPanel }}"
+                class="bg-green-600 text-white p-4 rounded-lg mt-4"
+                visibility="{{ isAdmin ? 'visible' : 'collapsed' }}"/>
+        
+        <Button text="Logout" 
+                tap="{{ onLogout }}"
+                class="bg-red-500 text-white p-4 rounded-lg mt-4"/>
+    </StackLayout>
+</Page>

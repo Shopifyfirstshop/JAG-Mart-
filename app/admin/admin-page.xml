@@ -1,0 +1,112 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBackButtonTap }}"/>
+        <ActionBar.titleView>
+            <Label text="JAG Mart" class="text-xl font-bold text-center" tap="{{ onTitleTap }}"/>
+        </ActionBar.titleView>
+        <ActionBar.actionItems>
+            <ActionItem tap="{{ onCartTap }}" ios.position="right" android.position="actionBar">
+                <ActionItem.actionView>
+                    <GridLayout columns="auto,auto" class="cart-button">
+                        <Label text="🛒" class="text-xl" col="0"/>
+                        <Label text="{{ cartItemCount }}" class="text-sm bg-red-500 text-white rounded-full px-1" col="1" visibility="{{ cartItemCount > 0 ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <TabView selectedIndex="{{ selectedTabIndex }}" class="bg-gray-100">
+        <!-- Products Tab -->
+        <TabViewItem title="Products">
+            <TabViewItem.view>
+                <GridLayout rows="auto, auto, *">
+                    <GridLayout rows="auto" columns="*, auto" class="m-4" row="0">
+                        <TextField hint="Search products..." text="{{ searchQuery }}" 
+                                class="p-2 border rounded-lg" col="0"/>
+                        <Button text="Clear" tap="{{ clearSearch }}" 
+                                class="ml-2 bg-gray-500 text-white p-2 rounded" 
+                                col="1" visibility="{{ searchQuery ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+
+                    <Button text="Add New Product" tap="{{ onAddProduct }}" 
+                            class="bg-green-600 text-white p-4 rounded-lg mx-4 mb-4" row="1"/>
+                    
+                    <ListView items="{{ filteredProducts }}" class="list-group" row="2">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="*, auto, auto" rows="auto" class="list-group-item p-4">
+                                <StackLayout col="0">
+                                    <Label text="{{ name }}" class="text-base font-medium"/>
+                                    <Label text="{{ category }}" class="text-sm text-gray-600"/>
+                                    <Label text="{{ '₹' + price }}" class="text-sm text-green-600"/>
+                                    <Label text="{{ inStock ? 'In Stock' : 'Out of Stock' }}" 
+                                        class="{{ inStock ? 'text-green-600' : 'text-red-600' }}"/>
+                                </StackLayout>
+                                <Button text="{{ inStock ? 'Mark Out' : 'Mark In' }}" 
+                                        tap="{{ $parents['ListView'].onToggleStock }}"
+                                        class="{{ inStock ? 'bg-red-500' : 'bg-green-500' }} text-white p-2 rounded"
+                                        col="1"/>
+                                <Button text="Remove" 
+                                        tap="{{ $parents['ListView'].onRemoveProduct }}"
+                                        class="bg-red-500 text-white p-2 rounded ml-2"
+                                        col="2"/>
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </GridLayout>
+            </TabViewItem.view>
+        </TabViewItem>
+
+        <!-- Categories Tab -->
+        <TabViewItem title="Categories">
+            <TabViewItem.view>
+                <GridLayout rows="auto, *">
+                    <Button text="Add New Category" tap="{{ onAddCategory }}" 
+                            class="bg-green-600 text-white p-4 rounded-lg m-4" row="0"/>
+                    
+                    <ListView items="{{ categories }}" class="list-group" row="1">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="*, auto" rows="auto" class="list-group-item p-4">
+                                <Label text="{{ $value }}" class="text-base font-medium" col="0"/>
+                                <Button text="Remove" 
+                                        tap="{{ $parents['ListView'].onRemoveCategory }}"
+                                        class="bg-red-500 text-white p-2 rounded"
+                                        col="1"
+                                        visibility="{{ $value !== 'Bulk' ? 'visible' : 'collapsed' }}"/>
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </GridLayout>
+            </TabViewItem.view>
+        </TabViewItem>
+
+        <!-- Users Tab -->
+        <TabViewItem title="Users">
+            <TabViewItem.view>
+                <GridLayout rows="auto, *">
+                    <GridLayout rows="auto" columns="*, auto" class="m-4" row="0">
+                        <TextField hint="Search users..." text="{{ userSearchQuery }}" 
+                                class="p-2 border rounded-lg" col="0"/>
+                        <Button text="Clear" tap="{{ clearUserSearch }}" 
+                                class="ml-2 bg-gray-500 text-white p-2 rounded" 
+                                col="1" visibility="{{ userSearchQuery ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+
+                    <ListView items="{{ filteredUsers }}" class="list-group" row="1">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="*, auto" rows="auto" class="list-group-item p-4" tap="{{ $parents['ListView'].onUserTap }}">
+                                <StackLayout col="0">
+                                    <Label text="{{ firstName + ' ' + lastName }}" class="text-base font-medium"/>
+                                    <Label text="{{ email }}" class="text-sm text-gray-600"/>
+                                    <Label text="{{ isAdmin ? 'Admin' : 'User' }}" 
+                                        class="{{ isAdmin ? 'text-green-600' : 'text-gray-600' }}"/>
+                                </StackLayout>
+                                <Label text="→" col="1" class="text-xl text-gray-400"/>
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </GridLayout>
+            </TabViewItem.view>
+        </TabViewItem>
+    </TabView>
+</Page>

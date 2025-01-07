@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+Page {
+    background-color: #f3f4f6;
+}
+
+.shadow-md {
+    elevation: 3;
+}
+
+ActionBar {
+    background-color: #059669;
+    color: white;
+}
+
+.category-image {
+    height: 150;
+    margin: 8;
+    border-radius: 8;
+    background-color: #f9fafb;
+}

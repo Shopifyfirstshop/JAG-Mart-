@@ -1,0 +1,32 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar>
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="onBackButtonTap"/>
+        <Label text="{{ item.name }}" />
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Image src="{{ item.image }}" class="h-64 rounded-lg" stretch="aspectFit"/>
+            
+            <Label text="{{ item.name }}" class="text-2xl font-bold mt-4"/>
+            <Label text="{{ '₹' + item.price }}" class="text-xl text-green-600 mt-2"/>
+            
+            <Label text="Out of Stock" class="text-xl text-red-500 mt-2" 
+                   visibility="{{ item.inStock ? 'collapsed' : 'visible' }}"/>
+            
+            <Label text="{{ item.description }}" textWrap="true" class="text-base text-gray-600 mt-2"/>
+            
+            <GridLayout columns="auto, *, auto" rows="auto" class="mt-4" 
+                        visibility="{{ item.inStock ? 'visible' : 'collapsed' }}">
+                <Button text="-" tap="{{ decreaseQuantity }}" class="w-12 h-12 bg-gray-200 rounded" col="0"/>
+                <Label text="{{ quantity }}" class="text-center text-xl" col="1"/>
+                <Button text="+" tap="{{ increaseQuantity }}" class="w-12 h-12 bg-gray-200 rounded" col="2"/>
+            </GridLayout>
+            
+            <Button text="Add to Cart" 
+                    class="bg-green-600 text-white p-4 rounded-lg mt-4" 
+                    tap="{{ onAddToCart }}"
+                    visibility="{{ item.inStock ? 'visible' : 'collapsed' }}"/>
+        </StackLayout>
+    </ScrollView>
+</Page>

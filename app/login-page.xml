@@ -1,0 +1,77 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Login">
+        <NavigationButton visibility="collapsed" />
+        <ActionBar.actionItems>
+            <ActionItem tap="onCartTap" ios.position="right" android.position="actionBar">
+                <ActionItem.actionView>
+                    <GridLayout columns="auto,auto" class="cart-button">
+                        <Label text="🛒" class="text-xl" col="0"/>
+                        <Label text="{{ cartItemCount }}" class="text-sm bg-red-500 text-white rounded-full px-1" col="1" visibility="{{ cartItemCount > 0 ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Label text="Welcome to JAG Mart!" class="text-2xl font-bold text-center text-green-700 mb-4"/>
+            
+            <StackLayout class="form mb-8">
+                <Label text="{{ errorMessage }}" class="text-red-500 text-center" 
+                       visibility="{{ errorMessage ? 'visible' : 'collapsed' }}" textWrap="true"/>
+                
+                <Label text="Email" class="text-gray-600"/>
+                <TextField text="{{ email }}" 
+                          hint="Enter your email"
+                          keyboardType="email"
+                          autocorrect="false"
+                          autocapitalizationType="none"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Label text="Password" class="text-gray-600"/>
+                <TextField text="{{ password }}" 
+                          hint="Enter your password"
+                          secure="true"
+                          class="p-2 border-b border-gray-300 mb-4"/>
+                
+                <Button text="Login" 
+                        tap="{{ onLogin }}"
+                        class="bg-green-600 text-white p-4 rounded-lg mb-2"/>
+                
+                <Button text="Register" 
+                        tap="{{ onRegisterTap }}"
+                        class="bg-gray-200 text-gray-700 p-4 rounded-lg"/>
+            </StackLayout>
+
+            <Label text="Browse Our Categories" class="text-xl font-bold text-center text-gray-700 mb-4"/>
+            
+            <GridLayout rows="auto, auto, auto" columns="*, *" class="categories-grid">
+                <StackLayout row="0" col="0" class="m-2 bg-white rounded-lg shadow-md" category="Dairy" tap="onCategoryTap">
+                    <Image src="~/images/dairy.png" class="category-image"/>
+                    <Label text="Dairy" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="0" col="1" class="m-2 bg-white rounded-lg shadow-md" category="Grains" tap="onCategoryTap">
+                    <Image src="~/images/grains.png" class="category-image"/>
+                    <Label text="Grains" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="1" col="0" class="m-2 bg-white rounded-lg shadow-md" category="Spices" tap="onCategoryTap">
+                    <Image src="~/images/spices.png" class="category-image"/>
+                    <Label text="Spices" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="1" col="1" class="m-2 bg-white rounded-lg shadow-md" category="Oils" tap="onCategoryTap">
+                    <Image src="~/images/oils.png" class="category-image"/>
+                    <Label text="Oils" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="2" colSpan="2" class="m-2 bg-white rounded-lg shadow-md" category="Bulk" tap="onCategoryTap">
+                    <Image src="~/images/bulk.jpg" class="category-image"/>
+                    <Label text="Bulk" class="text-center p-2 font-medium"/>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>

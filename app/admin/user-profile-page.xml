@@ -1,0 +1,38 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBackButtonTap }}"/>
+        <Label text="User Profile"/>
+    </ActionBar>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Label text="👤" class="text-6xl text-center"/>
+            
+            <GridLayout rows="auto, auto" columns="*, *" class="mt-4">
+                <Label text="First Name:" class="font-bold" row="0" col="0"/>
+                <Label text="{{ user.firstName }}" row="0" col="1"/>
+                
+                <Label text="Last Name:" class="font-bold" row="1" col="0"/>
+                <Label text="{{ user.lastName }}" row="1" col="1"/>
+            </GridLayout>
+
+            <StackLayout class="mt-4 p-4 bg-gray-100 rounded-lg">
+                <Label text="Contact Information" class="font-bold text-lg mb-2"/>
+                <Label text="{{ 'Email: ' + user.email }}" class="mb-2"/>
+                <Label text="{{ 'Phone: ' + user.phoneNumber }}" class="mb-2"/>
+                <Label text="{{ 'Address: ' + user.address }}" textWrap="true"/>
+            </StackLayout>
+
+            <StackLayout class="mt-4 p-4 bg-gray-100 rounded-lg">
+                <Label text="Account Status" class="font-bold text-lg mb-2"/>
+                <Label text="{{ user.isAdmin ? 'Administrator' : 'Regular User' }}" 
+                       class="{{ user.isAdmin ? 'text-green-600' : 'text-gray-600' }}"/>
+            </StackLayout>
+
+            <Button text="{{ user.isAdmin ? 'Remove Admin Rights' : 'Make Admin' }}"
+                    tap="{{ onToggleAdmin }}"
+                    class="{{ user.isAdmin ? 'bg-red-500' : 'bg-green-600' }} text-white p-4 rounded-lg mt-4"
+                    visibility="{{ user.email !== 'admin@jagmart.com' ? 'visible' : 'collapsed' }}"/>
+        </StackLayout>
+    </ScrollView>
+</Page>

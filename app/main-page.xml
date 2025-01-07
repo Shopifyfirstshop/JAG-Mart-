@@ -1,0 +1,53 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <ActionBar.titleView>
+            <Label text="JAG Mart" class="text-xl font-bold text-center" tap="{{ onTitleTap }}"/>
+        </ActionBar.titleView>
+        <ActionBar.actionItems>
+            <ActionItem tap="{{ onProfileTap }}" ios.position="left" android.position="actionBar">
+                <ActionItem.actionView>
+                    <Label text="{{ isLoggedIn ? '👤' : '🔑' }}" class="text-xl mr-8"/>
+                </ActionItem.actionView>
+            </ActionItem>
+            <ActionItem tap="{{ onCartTap }}" ios.position="right" android.position="actionBar">
+                <ActionItem.actionView>
+                    <GridLayout columns="auto,auto" class="cart-button">
+                        <Label text="🛒" class="text-xl" col="0"/>
+                        <Label text="{{ cartItemCount }}" class="text-sm bg-red-500 text-white rounded-full px-1" col="1" visibility="{{ cartItemCount > 0 ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <GridLayout rows="*" columns="*">
+        <ScrollView>
+            <GridLayout rows="auto, auto, auto" columns="*, *" class="p-4">
+                <StackLayout row="0" col="0" class="m-2 bg-white rounded-lg shadow-md" category="Dairy" tap="onCategoryTap">
+                    <Image src="~/images/dairy.png" class="category-image"/>
+                    <Label text="Dairy" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="0" col="1" class="m-2 bg-white rounded-lg shadow-md" category="Grains" tap="onCategoryTap">
+                    <Image src="~/images/grains.png" class="category-image"/>
+                    <Label text="Grains" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="1" col="0" class="m-2 bg-white rounded-lg shadow-md" category="Spices" tap="onCategoryTap">
+                    <Image src="~/images/spices.png" class="category-image"/>
+                    <Label text="Spices" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="1" col="1" class="m-2 bg-white rounded-lg shadow-md" category="Oils" tap="onCategoryTap">
+                    <Image src="~/images/oils.png" class="category-image"/>
+                    <Label text="Oils" class="text-center p-2 font-medium"/>
+                </StackLayout>
+                
+                <StackLayout row="2" colSpan="2" class="m-2 bg-white rounded-lg shadow-md" category="Bulk" tap="onCategoryTap">
+                    <Image src="~/images/bulk.jpg" class="category-image"/>
+                    <Label text="Bulk" class="text-center p-2 font-medium"/>
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
+    </GridLayout>
+</Page>

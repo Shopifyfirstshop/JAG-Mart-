@@ -1,0 +1,40 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBackButtonTap }}"/>
+        <ActionBar.titleView>
+            <Label text="JAG Mart" class="text-xl font-bold text-center" tap="{{ onTitleTap }}"/>
+        </ActionBar.titleView>
+        <ActionBar.actionItems>
+            <ActionItem tap="{{ onProfileTap }}" ios.position="left" android.position="actionBar">
+                <ActionItem.actionView>
+                    <Label text="{{ isLoggedIn ? '👤' : '🔑' }}" class="text-xl mr-8"/>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <StackLayout>
+        <ListView items="{{ cartItems }}" class="list-group" visibility="{{ cartItems.length > 0 ? 'visible' : 'collapsed' }}">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto, auto, auto" rows="auto" class="list-group-item p-4">
+                    <StackLayout col="0">
+                        <Label text="{{ name }}" class="text-base font-medium"/>
+                        <Label text="{{ 'Quantity: ' + quantity }}" class="text-sm text-gray-600"/>
+                    </StackLayout>
+                    <Label text="{{ '₹' + (price * quantity) }}" col="1" class="text-base text-green-600 mx-2"/>
+                    <Button text="Remove" col="2" class="bg-red-500 text-white p-2 rounded" tap="{{ $parents['ListView'].onRemoveFromCart }}"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+        
+        <StackLayout class="p-4 bg-gray-100" visibility="{{ cartItems.length > 0 ? 'visible' : 'collapsed' }}">
+            <Label text="{{ 'Total: ₹' + total }}" class="text-xl font-bold text-green-700"/>
+            <Button text="Checkout" class="bg-green-600 text-white p-4 rounded-lg mt-2" tap="{{ onCheckout }}"/>
+        </StackLayout>
+        
+        <StackLayout class="p-4" visibility="{{ cartItems.length === 0 ? 'visible' : 'collapsed' }}">
+            <Label text="Your cart is empty" class="text-xl text-center text-gray-600"/>
+            <Button text="Continue Shopping" class="bg-green-600 text-white p-4 rounded-lg mt-4" tap="{{ onBackButtonTap }}"/>
+        </StackLayout>
+    </StackLayout>
+</Page>

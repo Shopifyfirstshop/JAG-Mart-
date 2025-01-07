@@ -1,0 +1,37 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar class="bg-green-600 text-white">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" tap="{{ onBackButtonTap }}"/>
+        <ActionBar.titleView>
+            <Label text="JAG Mart" class="text-xl font-bold text-center" tap="{{ onTitleTap }}"/>
+        </ActionBar.titleView>
+        <ActionBar.actionItems>
+            <ActionItem tap="{{ onProfileTap }}" ios.position="left" android.position="actionBar">
+                <ActionItem.actionView>
+                    <Label text="{{ isLoggedIn ? '👤' : '🔑' }}" class="text-xl mr-8"/>
+                </ActionItem.actionView>
+            </ActionItem>
+            <ActionItem tap="{{ onCartTap }}" ios.position="right" android.position="actionBar">
+                <ActionItem.actionView>
+                    <GridLayout columns="auto,auto" class="cart-button">
+                        <Label text="🛒" class="text-xl" col="0"/>
+                        <Label text="{{ cartItemCount }}" class="text-sm bg-red-500 text-white rounded-full px-1" col="1" visibility="{{ cartItemCount > 0 ? 'visible' : 'collapsed' }}"/>
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    
+    <ListView items="{{ items }}" class="list-group" itemTap="onItemTap">
+        <ListView.itemTemplate>
+            <GridLayout columns="*, auto" rows="auto" class="list-group-item p-4">
+                <StackLayout col="0">
+                    <Label text="{{ name }}" class="text-lg font-medium"/>
+                    <Label text="{{ '₹' + price }}" class="text-base text-green-600"/>
+                    <Label text="Out of Stock" class="text-red-500" 
+                           visibility="{{ inStock ? 'collapsed' : 'visible' }}"/>
+                </StackLayout>
+                <Label text="→" col="1" class="text-xl text-gray-400"/>
+            </GridLayout>
+        </ListView.itemTemplate>
+    </ListView>
+</Page>
